@@ -82,4 +82,4 @@ Nilai bersifat usulan; sesuaikan setelah uji.
 - [ ] Endpoint baru punya dependensi auth yang benar dan cek peran/kepemilikan
 - [ ] Input divalidasi; tidak ada SQL mentah
 - [ ] Ada test negatif (tanpa token, peran salah, bukan pemilik)
-- [ ] Tidak ada rahasia di kode atau `.env.example`
+- [ ] Tidak ada rahasia di kode atau `backend/.env.example`

@@ -5,29 +5,39 @@
 Arsitektur three-tier. Repo ini mencakup application layer dan data layer.
 
 ```
-Next.js (repo lain)  --REST/JSON-->  FastAPI (repo ini)  --SQLAlchemy async-->  PostgreSQL/MySQL
+Next.js  --REST/JSON-->  FastAPI  --SQLAlchemy async-->  PostgreSQL/MySQL
 ```
 
-## 2. Struktur Folder
+## 2. Struktur Folder Target
 
 ```
-app/
-├── main.py            # entry point, CORS, router, exception handler
-├── core/              # config, security (JWT/hash), crypto (enkripsi), exceptions, rate_limit, logging
-├── db/                # base, session, mixins
-├── models/            # SQLAlchemy ORM, satu file per tabel
-├── schemas/           # Pydantic: request dan response
-├── services/          # logika bisnis
-├── api/
-│   ├── deps.py        # get_current_user, require_role
-│   └── v1/
-│       ├── router.py
-│       └── endpoints/ # auth, posts, users, trending, search, reports, notifications, admin
-└── utils/             # anon_id, hashtag
-alembic/               # migrasi
-tests/                 # unit/ dan integration/
-scripts/               # create_admin.py, seed_data.py
+backend/
+├── app/
+│   ├── main.py        # entry point, CORS, router, exception handler
+│   ├── core/          # config, security (JWT/hash), crypto, exceptions, rate_limit, logging
+│   ├── db/            # base, session, mixins
+│   ├── models/        # SQLAlchemy ORM, satu file per tabel
+│   ├── schemas/       # Pydantic: request dan response
+│   ├── services/      # logika bisnis
+│   ├── api/
+│   │   ├── deps.py    # get_current_user, require_role
+│   │   └── v1/
+│   │       ├── router.py
+│   │       └── endpoints/ # auth, posts, users, trending, search, reports, notifications, admin
+│   └── utils/         # anon_id, hashtag
+├── alembic/           # migrasi
+├── tests/             # unit/ dan integration/
+├── scripts/           # create_admin.py, seed_data.py
+├── pyproject.toml     # dependensi dan tooling backend
+├── docker-compose.yml # PostgreSQL lokal
+└── .env.example       # contoh konfigurasi backend tanpa rahasia
+frontend/              # aplikasi frontend
+docs/                  # dokumentasi proyek
 ```
+
+`Makefile` berada di root repo agar perintah harian dijalankan dari root. Path `app/`,
+`alembic/`, `tests/`, dan `scripts/` pada dokumen lain relatif terhadap `backend/`.
+Struktur ini adalah target backend; roadmap mencatat urutan pembuatannya.
 
 ## 3. Aturan Dependensi Antar-Layer
 
@@ -62,10 +72,10 @@ endpoints  →  services  →  models
 
 ## 6. Konfigurasi
 
-Semua konfigurasi lewat `app/core/config.py` (pydantic-settings) dari environment variable.
+Semua konfigurasi lewat `backend/app/core/config.py` (pydantic-settings) dari environment variable.
 Jangan memanggil `os.environ` langsung di tempat lain.
 
-Variabel minimum di `.env.example`:
+Variabel minimum di `backend/.env.example`:
 
 ```
 APP_ENV=development
@@ -95,7 +105,7 @@ Setiap dependensi baru dicatat di sini beserta alasannya.
 | pytest, pytest-asyncio, httpx, faker | Pengujian |
 | ruff, mypy, pre-commit | Kualitas kode |
 
-Versi dipin di `pyproject.toml`; cek rilis terbaru saat menginstal.
+Versi dipin di `backend/pyproject.toml`; cek rilis terbaru saat menginstal.
 
 ## 8. Versioning API
 

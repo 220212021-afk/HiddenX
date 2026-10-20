@@ -82,7 +82,7 @@ Dipakai FR-13 (trending 24 jam: hitung `post_hashtags` dengan `created_at` dalam
 
 ## 4. Naming Convention Constraint
 
-Set `naming_convention` di `MetaData` pada `db/base.py` agar Alembic menghasilkan nama
+Set `naming_convention` di `MetaData` pada `backend/app/db/base.py` agar Alembic menghasilkan nama
 constraint yang konsisten dan bisa di-drop:
 
 ```python
@@ -105,8 +105,8 @@ NAMING_CONVENTION = {
 4. **Jangan edit migrasi yang sudah di-commit/dibagikan.** Buat migrasi baru untuk koreksi.
 5. Jangan menaruh logika aplikasi atau impor `services` di dalam migrasi.
 6. Perubahan data (data migration) dipisah dari perubahan skema.
-7. `env.py` membaca URL dari `settings`, bukan dari `alembic.ini`.
-8. Semua model harus diimpor di `db/base.py` agar terdeteksi autogenerate.
+7. `backend/alembic/env.py` membaca URL dari `settings`, bukan dari `alembic.ini`.
+8. Semua model harus diimpor di `backend/app/db/base.py` agar terdeteksi autogenerate.
 9. Jangan menjalankan migrasi ke database selain lokal/dev tanpa persetujuan pengguna.
 
 ## 6. Aturan Query
@@ -119,6 +119,6 @@ NAMING_CONVENTION = {
 
 ## 7. Seed dan Data Uji
 
-- `scripts/seed_data.py` membuat data contoh untuk pengembangan frontend; hanya jalan bila
+- `backend/scripts/seed_data.py` membuat data contoh untuk pengembangan frontend; hanya jalan bila
   `APP_ENV=development`.
 - Data uji tidak boleh berisi email atau identitas orang sungguhan.

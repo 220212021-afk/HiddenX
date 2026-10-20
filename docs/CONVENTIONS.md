@@ -4,7 +4,7 @@
 
 - Type hints wajib pada semua fungsi publik. `mypy` harus lolos.
 - Formatter dan linter: `ruff` (panjang baris 100). Jangan menambah aturan ignore tanpa alasan.
-- Impor absolut dari `app.`, urutan dirapikan ruff.
+- Impor absolut dari `app.` (package di `backend/app/`), urutan dirapikan ruff.
 - Fungsi pendek dan satu tanggung jawab. Service dipecah bila melebihi sekitar 150 baris.
 - Komentar menjelaskan **mengapa**, bukan **apa**. Docstring service mencantumkan kode SRS.
 - Tidak ada `print()`; gunakan `logging` (lihat `SECURITY.md` bagian log).
@@ -24,7 +24,8 @@
 | Endpoint URL | kebab/jamak, huruf kecil | `/posts/{post_id}/like` |
 | Branch | `<tipe>/<singkat>` | `feat/post-create` |
 
-Konstanta yang dipakai lintas modul (mis. 280) didefinisikan sekali di `app/core/constants.py`.
+Konstanta yang dipakai lintas modul (mis. 280) didefinisikan sekali di
+`backend/app/core/constants.py`.
 
 ## 3. Pola Endpoint
 
@@ -65,7 +66,8 @@ Semua error dikembalikan dengan bentuk:
 
 - `code`: `UPPER_SNAKE`, stabil, dipakai frontend. `message`: bahasa Indonesia, aman ditampilkan.
 - Service melempar exception domain (`NotFoundError`, `ForbiddenError`, `ConflictError`,
-  `ValidationDomainError`) dari `core/exceptions.py`; handler di `main.py` memetakannya.
+  `ValidationDomainError`) dari `backend/app/core/exceptions.py`; handler di
+  `backend/app/main.py` memetakannya.
 - Jangan bocorkan detail internal (stack trace, query SQL, nama kolom identitas).
 - Pesan login gagal selalu generik ("Email atau kata sandi salah") agar tidak membuka
   keberadaan akun.

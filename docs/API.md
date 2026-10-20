@@ -6,7 +6,16 @@ Format error dan kode status: lihat `CONVENTIONS.md`.
 
 Kolom **Sumber**: *SRS* = tersurat di SRS, *Usulan* = usulan yang perlu dikonfirmasi tim.
 
-## 1. Daftar Endpoint
+## 1. Batas Implementasi
+
+- Endpoint ditempatkan di `backend/app/api/v1/endpoints/`; endpoint memvalidasi request,
+  memanggil service, lalu mengembalikan skema Pydantic.
+- Logika bisnis dan query database berada di `backend/app/services/`; service memakai
+  `AsyncSession` dan tidak mengimpor FastAPI.
+- Model ORM berada di `backend/app/models/`. Response memakai skema output eksplisit,
+  bukan objek ORM mentah, agar identitas asli dan ID internal tidak bocor.
+
+## 2. Daftar Endpoint
 
 ### Autentikasi (FR-01 s.d. FR-04)
 | Metode | Path | Fungsi | Sukses | Sumber |
@@ -47,7 +56,7 @@ Kolom **Sumber**: *SRS* = tersurat di SRS, *Usulan* = usulan yang perlu dikonfir
 | GET | `/notifications` 🔒 | Daftar notifikasi | 200 | Usulan |
 | POST | `/notifications/read` 🔒 | Tandai sudah dibaca | 204 | Usulan |
 
-## 2. Contoh Kontrak
+## 3. Contoh Kontrak
 
 ### POST `/auth/login`
 Request:
@@ -98,7 +107,7 @@ Query: `limit` (default 20, maks. 50), `cursor`.
 Status awal laporan: `pending` (menunggu tinjauan). Satu user tidak boleh melaporkan target
 yang sama dua kali (409).
 
-## 3. Aturan Perubahan Kontrak
+## 4. Aturan Perubahan Kontrak
 
 - Menambah field opsional di response: boleh di `v1`.
 - Menghapus/mengganti nama field, atau mengubah arti: wajib versi baru.

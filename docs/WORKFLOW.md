@@ -2,12 +2,13 @@
 
 ## 1. Setup Lokal
 
-```bash
-cp .env.example .env          # isi nilai rahasia lokal
-docker compose up -d db       # jalankan PostgreSQL
+```powershell
+# Jalankan perintah dari root repo.
+Copy-Item backend\.env.example backend\.env
+docker compose -f backend\docker-compose.yml up -d db
 make install
 make migrate
-python scripts/create_admin.py
+python backend\scripts\create_admin.py
 make run                      # http://localhost:8000/docs
 ```
 
@@ -32,12 +33,12 @@ python -c "import secrets; print(secrets.token_urlsafe(48))"
 
 | Jenis | Lokasi | Isi |
 | --- | --- | --- |
-| Unit | `tests/unit/` | Service, util (anon_id, hashtag), keamanan (JWT, enkripsi) tanpa jaringan |
-| Integrasi | `tests/integration/` | Endpoint via `httpx.AsyncClient` + DB uji nyata |
+| Unit | `backend/tests/unit/` | Service, util (anon_id, hashtag), keamanan (JWT, enkripsi) tanpa jaringan |
+| Integrasi | `backend/tests/integration/` | Endpoint via `httpx.AsyncClient` + DB uji nyata |
 
 - DB uji terpisah dari DB dev (`hiddenx_test`), dibuat bersih tiap sesi; gunakan transaksi
   rollback per test atau truncate.
-- Fixture di `conftest.py`: `db`, `client`, `make_user`, `auth_headers`.
+- Fixture di `backend/tests/conftest.py`: `db`, `client`, `make_user`, `auth_headers`.
 - Target awal: seluruh FR yang sudah diimplementasikan punya minimal satu test jalur normal
   dan satu jalur gagal.
 - Test wajib untuk aturan inti:
@@ -75,6 +76,6 @@ Kontrak `docs/API.md` disepakati dulu agar frontend bisa jalan dengan data tirua
 | Gejala | Kemungkinan penyebab |
 | --- | --- |
 | `MissingGreenlet` | Lazy loading di konteks async; muat relasi dengan `selectinload` |
-| Autogenerate Alembic kosong | Model belum diimpor di `db/base.py` |
+| Autogenerate Alembic kosong | Model belum diimpor di `backend/app/db/base.py` |
 | Login selalu gagal setelah ganti kunci | `HMAC_KEY` berubah sehingga `email_hash` lama tak cocok |
 | 422 pada body valid | Cek skema `extra="forbid"` dan nama field |

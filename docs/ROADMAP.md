@@ -4,19 +4,19 @@ Urutan pengerjaan backend dan database. Centang item saat selesai (agent boleh m
 file ini setelah menyelesaikan tugas). Fase bersifat usulan; sesuaikan dengan jadwal tim.
 
 ## Fase 0 — Fondasi
-- [ ] Inisialisasi proyek (`pyproject.toml`, ruff, mypy, pre-commit, Makefile)
-- [ ] `core/config.py`, `.env.example`, `docker-compose.yml` (PostgreSQL)
-- [ ] `db/base.py` (naming convention), `db/session.py` (async), `db/mixins.py`
-- [ ] Setup Alembic async + migrasi kosong pertama
-- [ ] `main.py`: CORS, router v1, exception handler seragam, endpoint `/health`
-- [ ] Setup pytest: `conftest.py`, DB uji, fixture dasar
+- [ ] Inisialisasi backend (`backend/pyproject.toml`, ruff, mypy, pre-commit) dan `Makefile` di root
+- [ ] `backend/app/core/config.py`, `backend/.env.example`, `backend/docker-compose.yml` (PostgreSQL)
+- [ ] `backend/app/db/base.py` (naming convention), `backend/app/db/session.py` (async), `backend/app/db/mixins.py`
+- [ ] Setup Alembic async di `backend/alembic/` + migrasi kosong pertama
+- [ ] `backend/app/main.py`: CORS, router v1, exception handler seragam, endpoint `/health`
+- [ ] Setup pytest: `backend/tests/conftest.py`, DB uji, fixture dasar
 
 ## Fase 1 — Autentikasi (FR-01 s.d. FR-04, NFR-01, NFR-02)
 - [ ] Model `users`, `refresh_tokens` + migrasi
-- [ ] `core/crypto.py` (Fernet + HMAC), `core/security.py` (argon2, JWT)
-- [ ] `utils/anon_id.py` (generator alias unik)
+- [ ] `backend/app/core/crypto.py` (Fernet + HMAC), `backend/app/core/security.py` (argon2, JWT)
+- [ ] `backend/app/utils/anon_id.py` (generator alias unik)
 - [ ] Register, login, refresh (rotasi), logout
-- [ ] `api/deps.py`: `get_current_user`, `require_role`
+- [ ] `backend/app/api/deps.py`: `get_current_user`, `require_role`
 - [ ] Rate limiting login/register
 - [ ] Test: alur auth lengkap, token kedaluwarsa, akun suspend, kebocoran identitas
 
@@ -44,8 +44,8 @@ file ini setelah menyelesaikan tugas). Fase bersifat usulan; sesuaikan dengan ja
 ## Fase 5 — Pengerasan dan Rilis
 - [ ] Tinjau index dan performa query feed/trending (EXPLAIN)
 - [ ] Review keamanan memakai checklist `SECURITY.md`
-- [ ] `scripts/seed_data.py`, `scripts/create_admin.py`
-- [ ] Dockerfile produksi, konfigurasi env produksi, matikan `/docs` bila perlu
+- [ ] `backend/scripts/seed_data.py`, `backend/scripts/create_admin.py`
+- [ ] `backend/Dockerfile` produksi, konfigurasi env produksi, matikan `/docs` bila perlu
 - [ ] Sinkronkan SRS dengan hasil akhir (DEC-01 s.d. DEC-03, endpoint, tabel tambahan)
 - [ ] Dokumentasi README dan panduan deploy
 
