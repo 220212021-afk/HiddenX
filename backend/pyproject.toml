@@ -47,6 +47,11 @@ testpaths = ["tests"]
 line-length = 100
 target-version = "py311"
 
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
 [tool.mypy]
 python_version = "3.11"
 strict = true
+files = ["app"]
+plugins = ["pydantic.mypy"]
