@@ -230,3 +230,19 @@ frontend/.next/
 frontend/out/
 frontend/dist/
 frontend/build/
+
+# Agent instructions and skills
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.github/copilot-instructions.md
+.github/agents/
+.github/skills/
+.agents/
+.claude/
+.codex/
+.continue/
+.copilot/
+.cursor/rules/
+.windsurf/rules/
+**/SKILL.md
