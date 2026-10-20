@@ -5,6 +5,7 @@
 ```powershell
 # Jalankan perintah dari root repo.
 Copy-Item backend\.env.example backend\.env
+& backend\.venv\Scripts\Activate.ps1
 docker compose -f backend\docker-compose.yml up -d db
 make install
 make migrate
@@ -13,7 +14,8 @@ make run                      # http://localhost:8000/docs
 ```
 
 Menghasilkan kunci:
-```bash
+Jalankan setelah mengaktifkan `backend/.venv`:
+```powershell
 python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 python -c "import secrets; print(secrets.token_urlsafe(48))"
 ```
