@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=75,<81"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hiddenx-backend"
+version = "0.1.0"
+description = "Hidden X anonymous microblogging backend"
+requires-python = ">=3.11"
+dependencies = [
+    "aiomysql==0.3.2",
+    "alembic==1.20.0",
+    "argon2-cffi==25.1.0",
+    "asyncpg==0.32.0",
+    "cryptography==46.0.7",
+    "email-validator==2.3.0",
+    "fastapi==0.154.0",
+    "PyJWT==2.15.1",
+    "pydantic==2.14.1",
+    "pydantic-settings==2.16.1",
+    "slowapi==0.1.10",
+    "sqlalchemy[asyncio]==2.1.5",
+    "uvicorn[standard]==0.54.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "faker==39.1.0",
+    "httpx==0.28.1",
+    "mypy==1.20.2",
+    "pre-commit==4.7.0",
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
+    "ruff==0.17.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+namespaces = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true

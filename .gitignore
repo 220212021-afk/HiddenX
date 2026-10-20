@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Hidden X local configuration and build artifacts
+**/.env
+**/.env.*
+!**/.env.example
+backend/.venv/
+backend/*.egg-info/
+backend/build/
+backend/dist/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/build/

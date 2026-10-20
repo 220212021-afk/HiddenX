@@ -7,7 +7,7 @@
 Copy-Item backend\.env.example backend\.env
 & backend\.venv\Scripts\Activate.ps1
 docker compose -f backend\docker-compose.yml up -d db
-make install
+& backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 make migrate
 python backend\scripts\create_admin.py
 make run                      # http://localhost:8000/docs
