@@ -247,3 +247,6 @@ GEMINI.md
 .windsurf/rules/
 **/SKILL.md
 docs/agent
+
+# add compose to ignore
+compose.yaml
