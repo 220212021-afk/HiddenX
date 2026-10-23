@@ -24,7 +24,7 @@ def create_access_token(user_id: int, anon_id: str, role: str) -> str:
         "sub": str(user_id),
         "anon_id": anon_id,
         "role": role,
-        type: "access",
+        "type": "access",
         "iat": now,
         "exp": now + timedelta(minutes=settings.access_token_expire_minutes),
     }

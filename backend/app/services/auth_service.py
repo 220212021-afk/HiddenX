@@ -1,4 +1,4 @@
-from backend.app.core.exceptions import UnauthorizedError
+from app.core.exceptions import UnauthorizedError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
