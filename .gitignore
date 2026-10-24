@@ -230,6 +230,10 @@ frontend/.next/
 frontend/out/
 frontend/dist/
 frontend/build/
+frontend/coverage/
+frontend/.vercel/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
 
 # Agent instructions and skills
 AGENTS.md
