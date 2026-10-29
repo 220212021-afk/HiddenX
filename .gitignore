@@ -239,6 +239,7 @@ frontend/next-env.d.ts
 AGENTS.md
 CLAUDE.md
 GEMINI.md
+AI-SKILLS.md
 .github/copilot-instructions.md
 .github/agents/
 .github/skills/
