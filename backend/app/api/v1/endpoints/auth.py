@@ -9,16 +9,18 @@ from app.services import auth_service
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
+db_depends = Depends(get_db)
+
 
 @router.post(
     "/register", response_model=UserPublic, status_code=status.HTTP_201_CREATED
 )
-async def register(data: RegisterIn, db: AsyncSession = Depends(get_db)):
+async def register(data: RegisterIn, db: AsyncSession = db_depends):
     return await auth_service.register(db, data)
 
 
 @router.post("/login", response_model=TokenOut)
-async def login(data: LoginIn, db: AsyncSession = Depends(get_db)):
+async def login(data: LoginIn, db: AsyncSession = db_depends):
     token = await auth_service.login(db, data)
     return TokenOut(
         access_token=token, expires_in=settings.access_token_expire_minutes * 60
