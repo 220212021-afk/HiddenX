@@ -1,7 +1,9 @@
+from datetime import datetime, timedelta, timezone
+
+import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
-import jwt
-from datetime import datetime, timedelta, timezone
+
 from app.core.config import settings
 
 _hasher = PasswordHasher()
@@ -18,6 +20,7 @@ def verify_password(password: str, hashed: str) -> bool:
     except VerifyMismatchError:
         return False
 
+
 def create_access_token(user_id: int, anon_id: str, role: str) -> str:
     now = datetime.now(timezone.utc)
     payload = {
@@ -29,6 +32,7 @@ def create_access_token(user_id: int, anon_id: str, role: str) -> str:
         "exp": now + timedelta(minutes=settings.access_token_expire_minutes),
     }
     return jwt.encode(payload, settings.secret_key, algorithm=ALGORITHM)
+
 
 def decode_access_token(token: str) -> dict:
     payload = jwt.decode(token, settings.secret_key, algorithms=[ALGORITHM])

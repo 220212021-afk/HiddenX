@@ -1,4 +1,3 @@
-from webbrowser import get
 import jwt
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -11,9 +10,10 @@ from app.models.user import User, UserStatus
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
+
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
 ) -> User:
     if credentials is None:
         raise UnauthorizedError("token tidak ditemukan", code="TOKEN_MISSING")

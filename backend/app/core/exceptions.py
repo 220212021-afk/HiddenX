@@ -7,17 +7,21 @@ class AppError(Exception):
         self.message = message
         self.code = code or self.default_code
 
+
 class UnauthorizedError(AppError):
     status_code = 401
     default_code = "UNAUTHORIZED"
+
 
 class ForbiddenError(AppError):
     status_code = 403
     default_code = "FORBIDDEN"
 
+
 class NotFoundError(AppError):
     status_code = 404
     default_code = "NOT_FOUND"
+
 
 class ConflictError(AppError):
     status_code = 409

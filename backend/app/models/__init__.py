@@ -1,2 +1,2 @@
-from app.models.user import User  # noqa: F401
 from app.models.post import Post
+from app.models.user import User  # noqa: F401

@@ -1,8 +1,7 @@
-from http.client import responses
-from asyncio import Transport
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
+
 
 async def test_me_without_token_returns_401():
     transport = ASGITransport(app=app)
